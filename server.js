@@ -15,6 +15,8 @@ app.get('/', (req,res) => {
 
 let esperandoUsuario = null;
 
+
+// Fazendo a conexão
 io.on('connection', (socket) => {
     console.log('Um usuario se conectou');
 
@@ -52,14 +54,15 @@ io.on('connection', (socket) => {
     })
     // se desconectar
 
-    socket.on('manual disconnect ', () => {
+    socket.on('manual disconnect', () => {
         if (socket.partner) {
             socket.partner.emit('chat end', `${socket.username} desconectou.`);
             socket.partner.partner = null;
             socket.partner = null;
         }
 
-        socket.emit('chat end', 'Voce desconectou');
+        socket.emit('chat end', `Voce desconectou`);
+        console.log("caiu aqui")
     })
     
     // lidar com a desconexão
